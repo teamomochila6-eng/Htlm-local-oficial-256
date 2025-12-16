@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍓 Examen de Frutas para Bubucita 💖</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffebee 0%, #fce4ec 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        /* PORTADA DEL EXAMEN */
+        .exam-cover {
+            background: white;
+            border-radius: 25px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+            border: 3px solid #ffb6c1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .cover-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .cover-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #ff69b4;
+            text-shadow: 2px 2px 0 #ffb6c1;
+            font-weight: 700;
+            font-style: normal;
+        }
+        
+        .cover-subtitle {
+            font-size: 18px;
+            color: #ff69b4;
+            margin-bottom: 25px;
+            font-weight: 600;
+            font-style: normal;
+        }
+        
+        .cover-message {
+            background: #fff0f5;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 5px solid #ff69b4;
+            text-align: left;
+            line-height: 1.6;
+        }
+        
+        .cover-message p {
+            margin-bottom: 10px;
+            color: #d81b60;
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 20px;
+            color: #ff4081;
+            font-weight: bold;
+            font-style: normal;
+        }
+        
+        .start-btn {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 5px 20px rgba(255, 105, 180, 0.4);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-style: normal;
+        }
+        
+        .start-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.6);
+        }
+        
+        /* PREGUNTA DEL EXAMEN */
+        .question-card {
+            display: none;
+            background: white;
+            border-radius: 25px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+            border: 3px solid #ffb6c1;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .question-number {
+            background: #ffebee;
+            color: #ff69b4;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-style: normal;
+        }
+        
+        .question-text {
+            font-size: 24px;
+            color: #d81b60;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            font-weight: 600;
+            font-style: normal;
+        }
+        
+        .love-message {
+            background: #fff0f5;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #ff4081;
+            font-style: normal;
+            font-weight: 500;
+            border-left: 4px solid #ff69b4;
+        }
+        
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .option-btn {
+            background: white;
+            border: 3px solid #ffb6c1;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        
+        .option-btn:hover {
+            transform: translateY(-5px);
+            background: #fff0f5;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
+        }
+        
+        .option-btn.selected {
+            background: #ffebee;
+            border-color: #ff69b4;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+        }
+        
+        .fruit-icon {
+            font-size: 40px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .fruit-strawberry {
+            background: #ffebee;
+            color: #ff1744;
+        }
+        
+        .fruit-mango {
+            background: #fff3e0;
+            color: #ff9800;
+        }
+        
+        .fruit-grape {
+            background: #f3e5f5;
+            color: #8e24aa;
+        }
+        
+        .option-letter {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff69b4;
+            min-width: 30px;
+            font-style: normal;
+        }
+        
+        .option-text {
+            font-size: 18px;
+            color: #d81b60;
+            flex-grow: 1;
+            font-weight: 500;
+            font-style: normal;
+        }
+        
+        .next-btn {
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            display: none;
+            font-style: normal;
+        }
+        
+        .next-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(76, 175, 80, 0.6);
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            display: none;
+            animation: popIn 0.5s ease;
+            font-style: normal;
+        }
+        
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .feedback.correct {
+            background: #e8f5e9;
+            color: #2E7D32;
+            border-left: 5px solid #4CAF50;
+        }
+        
+        .feedback.incorrect {
+            background: #ffebee;
+            color: #d32f2f;
+            border-left: 5px solid #f44336;
+        }
+        
+        /* RESULTADO FINAL */
+        .result-card {
+            display: none;
+            background: white;
+            border-radius: 25px;
+            padding: 50px 30px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
+            border: 3px solid #ffb6c1;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .result-icon {
+            font-size: 100px;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #ff69b4, #ff1493);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-15px); }
+        }
+        
+        .result-title {
+            font-size: 36px;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 #ffb6c1;
+            font-weight: 700;
+            font-style: normal;
+        }
+        
+        .result-message {
+            background: #fff0f5;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: left;
+            line-height: 1.8;
+            color: #d81b60;
+            border-left: 5px solid #ff69b4;
+        }
+        
+        .result-message p {
+            margin-bottom: 15px;
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+        .motivation-box {
+            background: linear-gradient(135deg, #fff9c4, #fff59d);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 3px solid #ffd600;
+            text-align: center;
+            color: #f57f17;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .hearts {
+            font-size: 30px;
+            color: #ff1744;
+            margin: 20px 0;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #ff69b4;
+            font-size: 14px;
+            font-style: normal;
+        }
+        
+        /* FRUTAS FLOTANTES DE FONDO */
+        .floating-fruit {
+            position: fixed;
+            font-size: 30px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: floatFruit 15s linear infinite;
+        }
+        
+        @keyframes floatFruit {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+        
+        .strawberry { color: #ff1744; }
+        .mango { color: #ff9800; }
+        .grape { color: #8e24aa; }
+        .cherry { color: #d81b60; }
+        .watermelon { color: #4CAF50; }
+        .pineapple { color: #ffeb3b; }
+        
+        @media (max-width: 480px) {
+            .exam-cover, .question-card, .result-card {
+                padding: 30px 20px;
+            }
+            
+            .cover-title {
+                font-size: 28px;
+            }
+            
+            .question-text {
+                font-size: 22px;
+            }
+            
+            .option-btn {
+                padding: 15px;
+            }
+            
+            .fruit-icon {
+                font-size: 30px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .motivation-box {
+                font-size: 18px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- FRUTAS FLOTANTES DE FONDO -->
+    <div class="floating-fruit strawberry" style="left: 10%; animation-delay: 0s;">🍓</div>
+    <div class="floating-fruit mango" style="left: 20%; animation-delay: 2s;">🥭</div>
+    <div class="floating-fruit grape" style="left: 30%; animation-delay: 4s;">🍇</div>
+    <div class="floating-fruit cherry" style="left: 40%; animation-delay: 6s;">🍒</div>
+    <div class="floating-fruit watermelon" style="left: 50%; animation-delay: 8s;">🍉</div>
+    <div class="floating-fruit pineapple" style="left: 60%; animation-delay: 10s;">🍍</div>
+    <div class="floating-fruit strawberry" style="left: 70%; animation-delay: 12s;">🍓</div>
+    <div class="floating-fruit mango" style="left: 80%; animation-delay: 14s;">🥭</div>
+    
+    <div class="container">
+        <!-- PORTADA DEL EXAMEN -->
+        <div class="exam-cover" id="examCover">
+            <div class="cover-icon">🍓💖</div>
+            <h1 class="cover-title">EXAMEN DE FRUTAS</h1>
+            <h2 class="cover-subtitle">Para Bubucita 💕</h2>
+            
+            <div class="cover-message">
+                <p>Mi Bubu hermosa 💖,</p>
+                <p>Este examen es para que sepas cuánto te amo y recuerdes momentos especiales nuestro.</p>
+                <p>Aquí estoy contigo siempre, apoyándote en todo.</p>
+                <p class="signature">Con todo mi corazón y pasión,<br>Daniel, el chico que te ama 💘</p>
+            </div>
+            
+            <button class="start-btn" id="startBtn">
+                <i class="fas fa-heart"></i>
+                <span>EMPEZAR EXAMEN DE AMOR</span>
+            </button>
+            
+            <div class="footer">
+                <p>💝 Cada fruta es un pedacito de mi amor por ti 💝</p>
+            </div>
+        </div>
+        
+        <!-- PREGUNTA 1 -->
+        <div class="question-card" id="question1">
+            <div class="question-number">Pregunta 1 de 3</div>
+            <h2 class="question-text">¿Cuál es nuestra película favorita?</h2>
+            
+            <div class="love-message">
+                <i class="fas fa-heart"></i> Respuesta con mucho amor, mi Bubu 💖
+            </div>
+            
+            <div class="options-container">
+                <div class="option-btn" data-letter="A" data-fruit="strawberry">
+                    <div class="fruit-icon fruit-strawberry">🍓</div>
+                    <div class="option-letter">A</div>
+                    <div class="option-text">El libro de la vida</div>
+                </div>
+                
+                <div class="option-btn" data-letter="B" data-fruit="mango">
+                    <div class="fruit-icon fruit-mango">🥭</div>
+                    <div class="option-letter">B</div>
+                    <div class="option-text">Encantada</div>
+                </div>
+                
+                <div class="option-btn" data-letter="C" data-fruit="grape">
+                    <div class="fruit-icon fruit-grape">🍇</div>
+                    <div class="option-letter">C</div>
+                    <div class="option-text">La María de la Amistad</div>
+                </div>
+            </div>
+            
+            <div class="feedback correct" id="feedback1">
+                <i class="fas fa-check-circle"></i> ¡Correcto! "El libro de la vida" es nuestra peli favorita 💕
+            </div>
+            
+            <button class="next-btn" id="nextBtn1">
+                <i class="fas fa-arrow-right"></i>
+                <span>SIGUIENTE PREGUNTA</span>
+            </button>
+        </div>
+        
+        <!-- PREGUNTA 2 -->
+        <div class="question-card" id="question2">
+            <div class="question-number">Pregunta 2 de 3</div>
+            <h2 class="question-text">¿Cuál es tu plato de comida favorito?</h2>
+            
+            <div class="love-message">
+                <i class="fas fa-heart"></i> Te amo mi niña, responde esto con mucho cuidado 💖<br>
+                Sé que sabes la respuesta, confía en tu corazón 💕
+            </div>
+            
+            <div class="options-container">
+                <div class="option-btn" data-letter="A" data-fruit="strawberry">
+                    <div class="fruit-icon fruit-strawberry">🍓</div>
+                    <div class="option-letter">A</div>
+                    <div class="option-text">Pato guisado</div>
+                </div>
+                
+                <div class="option-btn" data-letter="B" data-fruit="mango">
+                    <div class="fruit-icon fruit-mango">🥭</div>
+                    <div class="option-letter">B</div>
+                    <div class="option-text">Cebiche</div>
+                </div>
+                
+                <div class="option-btn" data-letter="C" data-fruit="grape">
+                    <div class="fruit-icon fruit-grape">🍇</div>
+                    <div class="option-letter">C</div>
+                    <div class="option-text">Pescado</div>
+                </div>
+            </div>
+            
+            <div class="feedback correct" id="feedback2">
+                <i class="fas fa-check-circle"></i> ¡Exacto! Sabía que recordarías nuestro patito guisado favorito 🍗💖
+            </div>
+            
+            <button class="next-btn" id="nextBtn2">
+                <i class="fas fa-arrow-right"></i>
+                <span>SIGUIENTE PREGUNTA</span>
+            </button>
+        </div>
+        
+        <!-- PREGUNTA 3 -->
+        <div class="question-card" id="question3">
+            <div class="question-number">Pregunta 3 de 3</div>
+            <h2 class="question-text">¿Cuál es nuestro juego favorito en Roblox?</h2>
+            
+            <div class="love-message">
+                <i class="fas fa-heart"></i> Selecciona la respuesta correcta, confía en tus instintos Bubu 💕<br>
+                Recuerda nuestras risas jugando juntos 🎮💖
+            </div>
+            
+            <div class="options-container">
+                <div class="option-btn" data-letter="A" data-fruit="strawberry">
+                    <div class="fruit-icon fruit-strawberry">🍓</div>
+                    <div class="option-letter">A</div>
+                    <div class="option-text">Arañitas</div>
+                </div>
+                
+                <div class="option-btn" data-letter="B" data-fruit="mango">
+                    <div class="fruit-icon fruit-mango">🥭</div>
+                    <div class="option-letter">B</div>
+                    <div class="option-text">Responder o hundirte</div>
+                </div>
+                
+                <div class="option-btn" data-letter="C" data-fruit="grape">
+                    <div class="fruit-icon fruit-grape">🍇</div>
+                    <div class="option-letter">C</div>
+                    <div class="option-text">Brainrots</div>
+                </div>
+            </div>
+            
+            <div class="feedback correct" id="feedback3">
+                <i class="fas fa-check-circle"></i> ¡Sí! Las "Arañitas" es nuestro juego favorito 🕷️💕
+            </div>
+            
+            <button class="next-btn" id="nextBtn3">
+                <i class="fas fa-heart"></i>
+                <span>VER MENSAJE FINAL DE AMOR</span>
+            </button>
+        </div>
+        
+        <!-- RESULTADO FINAL - CON MENSAJE DE ÁNIMO -->
+        <div class="result-card" id="resultCard">
+            <div class="result-icon">💖🍓</div>
+            <h1 class="result-title">¡EXAMEN COMPLETADO!</h1>
+            
+            <div class="motivation-box">
+                <i class="fas fa-star"></i> ¡FELICIDADES BUBU! ¡ERES INCREÍBLE! <i class="fas fa-star"></i>
+            </div>
+            
+            <div class="result-message">
+                <p>Mi Bubu hermosa 💕,</p>
+                <p><strong>¡ÁNIMO MI AMOR! ¡ESTOY CONTIGO!</strong> 💪💖</p>
+                <p>Quiero que sepas que eres una persona fuerte, capaz y maravillosa. Cada día veo lo increíble que eres y todo lo que puedes lograr.</p>
+                <p><strong>¡TÚ GANARÁS EL AÑO, AMOR!</strong> 🏆✨ Sé que con tu esfuerzo y dedicación, vas a lograr todas tus metas. Confío plenamente en ti, en tu capacidad y en tu gran corazón.</p>
+                <p>Recuerda que estoy aquí para apoyarte en cada paso, para celebrar tus logros y para animarte cuando lo necesites. Juntos podemos con todo.</p>
+                <p>Con el apoyo de Dios y con tu maravillosa energía positiva, <strong>¡te irá súper bien!</strong> Cada reto es una oportunidad para brillar, y tú brillas más que nadie.</p>
+                <p style="text-align: center; margin-top: 20px; font-weight: bold; color: #ff4081;">
+                    ¡VAMOS BUBU! ¡TÚ PUEDES CON TODO! 💪🌟<br>
+                    TE AMO CON TODO MI SER 💖<br>
+                    CON AMOR, DANIEL 💘
+                </p>
+            </div>
+            
+            <div class="motivation-box" style="background: linear-gradient(135deg, #e1f5fe, #b3e5fc); border-color: #039be5; color: #0277bd;">
+                <i class="fas fa-trophy"></i> ¡ERES UNA GANADORA! ¡EL MUNDO ES TUYO! <i class="fas fa-trophy"></i>
+            </div>
+            
+            <div class="hearts">
+                💖 ✨ 💪 🌟 🏆 💕
+            </div>
+            
+            <div class="footer">
+                <p>Este examen fue hecho con todo mi apoyo y admiración para ti, Bubu 💝</p>
+                <p>¡Siempre estaré aquí para animarte y apoyarte! 💪💖</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURACIÓN DEL EXAMEN
+        const questions = [
+            {
+                id: 1,
+                correctAnswer: "A",
+                feedback: "¡Correcto! 'El libro de la vida' es nuestra peli favorita 💕"
+            },
+            {
+                id: 2,
+                correctAnswer: "A",
+                feedback: "¡Exacto! Sabía que recordarías nuestro patito guisado favorito 🍗💖"
+            },
+            {
+                id: 3,
+                correctAnswer: "A",
+                feedback: "¡Sí! Las 'Arañitas' es nuestro juego favorito 🕷️💕"
+            }
+        ];
+        
+        // Elementos DOM
+        const examCover = document.getElementById('examCover');
+        const startBtn = document.getElementById('startBtn');
+        const questionCards = [
+            document.getElementById('question1'),
+            document.getElementById('question2'),
+            document.getElementById('question3')
+        ];
+        const resultCard = document.getElementById('resultCard');
+        const nextButtons = [
+            document.getElementById('nextBtn1'),
+            document.getElementById('nextBtn2'),
+            document.getElementById('nextBtn3')
+        ];
+        const feedbacks = [
+            document.getElementById('feedback1'),
+            document.getElementById('feedback2'),
+            document.getElementById('feedback3')
+        ];
+        
+        let currentQuestion = 0;
+        
+        // Empezar examen
+        startBtn.addEventListener('click', function() {
+            examCover.style.display = 'none';
+            questionCards[currentQuestion].style.display = 'block';
+            
+            // Efecto de sonido de corazón (simulado)
+            console.log('💖 Empezando examen de amor para Bubu 💖');
+            createFloatingHearts();
+        });
+        
+        // Configurar eventos para los botones de opción
+        questionCards.forEach((card, index) => {
+            const optionButtons = card.querySelectorAll('.option-btn');
+            const nextBtn = nextButtons[index];
+            const feedback = feedbacks[index];
+            
+            optionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Quitar selección de otras opciones
+                    optionButtons.forEach(btn => btn.classList.remove('selected'));
+                    
+                    // Seleccionar esta opción
+                    this.classList.add('selected');
+                    
+                    // Obtener la letra seleccionada
+                    const selectedLetter = this.getAttribute('data-letter');
+                    const selectedFruit = this.getAttribute('data-fruit');
+                    
+                    // Verificar si es correcta
+                    const isCorrect = selectedLetter === questions[index].correctAnswer;
+                    
+                    // Mostrar feedback
+                    if (isCorrect) {
+                        feedback.textContent = questions[index].feedback;
+                        feedback.className = 'feedback correct';
+                        feedback.style.display = 'block';
+                        
+                        // Mostrar botón siguiente
+                        nextBtn.style.display = 'flex';
+                        
+                        // Efecto visual de correcto
+                        this.style.borderColor = '#4CAF50';
+                        this.style.boxShadow = '0 5px 20px rgba(76, 175, 80, 0.4)';
+                        
+                        // Efecto de corazones
+                        createMiniHearts(this);
+                    } else {
+                        feedback.textContent = '💖 Intenta de nuevo, mi amor. Confía en tu corazón 💕';
+                        feedback.className = 'feedback incorrect';
+                        feedback.style.display = 'block';
+                        
+                        // Efecto visual de incorrecto
+                        this.style.borderColor = '#f44336';
+                        this.style.boxShadow = '0 5px 20px rgba(244, 67, 54, 0.4)';
+                    }
+                });
+            });
+            
+            // Configurar botón siguiente
+            nextBtn.addEventListener('click', function() {
+                // Ocultar pregunta actual
+                questionCards[index].style.display = 'none';
+                
+                // Si hay más preguntas, mostrar siguiente
+                if (index < questionCards.length - 1) {
+                    questionCards[index + 1].style.display = 'block';
+                    currentQuestion = index + 1;
+                } else {
+                    // Si es la última pregunta, mostrar resultado
+                    resultCard.style.display = 'block';
+                    
+                    // Efecto especial de finalización
+                    createFinalHearts();
+                    console.log('💝 Examen completado con éxito para Bubu 💝');
+                    console.log('🌟 Mensaje de ánimo mostrado: ¡Tú puedes Bubu! 🌟');
+                }
+            });
+        });
+        
+        // Crear mini corazones cuando acierta
+        function createMiniHearts(element) {
+            const rect = element.getBoundingClientRect();
+            
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '💖';
+                    heart.style.position = 'fixed';
+                    heart.style.left = (rect.left + 50) + 'px';
+                    heart.style.top = (rect.top + 20) + 'px';
+                    heart.style.fontSize = '20px';
+                    heart.style.zIndex = '1000';
+                    heart.style.opacity = '1';
+                    document.body.appendChild(heart);
+                    
+                    // Animación
+                    const animation = heart.animate([
+                        { 
+                            transform: 'translate(0, 0) scale(1)', 
+                            opacity: 1 
+                        },
+                        { 
+                            transform: `translate(${Math.random() * 100 - 50}px, -50px) scale(0.5)`, 
+                            opacity: 0 
+                        }
+                    ], {
+                        duration: 1000,
+                        easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+                    });
+                    
+                    animation.onfinish = () => heart.remove();
+                }, i * 200);
+            }
+        }
+        
+        // Crear corazones flotantes al empezar
+        function createFloatingHearts() {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = Math.random() > 0.5 ? '💖' : '💕';
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '100vh';
+                    heart.style.fontSize = (20 + Math.random() * 30) + 'px';
+                    heart.style.zIndex = '999';
+                    heart.style.opacity = '0.7';
+                    document.body.appendChild(heart);
+                    
+                    // Animación
+                    const animation = heart.animate([
+                        { 
+                            transform: 'translateY(0) rotate(0deg)', 
+                            opacity: 0.7 
+                        },
+                        { 
+                            transform: `translateY(-100vh) rotate(${Math.random() * 360}deg)`, 
+                            opacity: 0 
+                        }
+                    ], {
+                        duration: 3000 + Math.random() * 4000,
+                        easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+                    });
+                    
+                    animation.onfinish = () => heart.remove();
+                }, i * 300);
+            }
+        }
+        
+        // Crear corazones y estrellas finales al completar examen
+        function createFinalHearts() {
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const symbol = document.createElement('div');
+                    // Mezclar corazones y estrellas
+                    if (Math.random() > 0.5) {
+                        symbol.innerHTML = Math.random() > 0.5 ? '💖' : '💕';
+                        symbol.style.color = '#ff1744';
+                    } else {
+                        symbol.innerHTML = Math.random() > 0.5 ? '✨' : '🌟';
+                        symbol.style.color = '#ffd600';
+                    }
+                    
+                    symbol.style.position = 'fixed';
+                    symbol.style.left = Math.random() * 100 + 'vw';
+                    symbol.style.top = '100vh';
+                    symbol.style.fontSize = (25 + Math.random() * 40) + 'px';
+                    symbol.style.zIndex = '999';
+                    symbol.style.opacity = '0.9';
+                    document.body.appendChild(symbol);
+                    
+                    // Animación más lenta y dramática
+                    const animation = symbol.animate([
+                        { 
+                            transform: 'translateY(0) rotate(0deg) scale(1)', 
+                            opacity: 0.9 
+                        },
+                        { 
+                            transform: `translateY(-120vh) rotate(${Math.random() * 720}deg) scale(${0.5 + Math.random() * 0.5})`, 
+                            opacity: 0 
+                        }
+                    ], {
+                        duration: 4000 + Math.random() * 5000,
+                        easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+                    });
+                    
+                    animation.onfinish = () => symbol.remove();
+                }, i * 150);
+            }
+            
+            // Mensaje especial en consola
+            console.log('%c🌟 PARA BUBU 🌟', 'color: #ff69b4; font-size: 24px; font-weight: bold;');
+            console.log('%c¡ÁNIMO MI AMOR! ¡ERES INCREÍBLE Y GANARÁS EL AÑO! 💪✨', 'color: #d81b60; font-size: 16px;');
+        }
+        
+        // Inicializar frutas flotantes adicionales
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🍓 Examen de frutas cargado para Bubucita 💖');
+            console.log('🌟 Versión de ánimo y motivación 🌟');
+            console.log('💝 Hecho con amor por Daniel para animar a su Bubu 💝');
+        });
+    </script>
+</body>
+</html>
